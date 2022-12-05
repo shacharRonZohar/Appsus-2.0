@@ -14,14 +14,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Example {
+model mail {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  to        String[]
+  from      String
+  subject   String?
+  body      String?
 }
 
 // Necessary for Next auth
-
 model Account {
   id                String  @id @default(cuid())
   userId            String
