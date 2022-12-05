@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { router, publicProcedure } from '../trpc'
+import { router, publicProcedure, protectedProcedure } from '../trpc'
 
 export const exampleRouter = router({
   hello: publicProcedure.input(z.object({ text: z.string().nullish() }).nullish()).query(({ input }) => {
@@ -8,7 +8,8 @@ export const exampleRouter = router({
       greeting: `Hello ${input?.text ?? 'world'}`,
     }
   }),
-  getAll: publicProcedure.query(({ ctx }) => {
+  getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.example.findMany()
   }),
 })
+

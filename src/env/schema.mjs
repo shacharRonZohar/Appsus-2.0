@@ -16,6 +16,8 @@ export const serverSchema = z.object({
     // VERCEL_URL doesn't include `https` so it cant be validated as a URL
     process.env.VERCEL ? z.string() : z.string().url(),
   ),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
   // DISCORD_CLIENT_ID: z.string(),
   // DISCORD_CLIENT_SECRET: z.string(),
 })
@@ -38,3 +40,4 @@ export const clientSchema = z.object({
 export const clientEnv = {
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 }
+

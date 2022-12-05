@@ -1,3 +1,4 @@
+import * as z from 'zod'
 import { router, publicProcedure, protectedProcedure } from '../trpc'
 
 export const authRouter = router({
@@ -8,3 +9,4 @@ export const authRouter = router({
     return 'you can now see this secret message!'
   }),
 })
+
