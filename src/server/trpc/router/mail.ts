@@ -1,5 +1,5 @@
 import { z } from 'zod'
-
+import type { inferRouterContext } from '@trpc/server'
 import { router, publicProcedure, protectedProcedure } from '../trpc'
 
 export const mailRouter = router({
@@ -38,7 +38,7 @@ export const mailRouter = router({
   }),
 })
 
-const makeDemoData = async ctx => {
+const makeDemoData = async (ctx: CtxWithPrismaAndSession) => {
   // Make demo data of 10 mails, 5 sent by user, 5 sent to user
   const demoMails = []
   for (let i = 0; i < 10; i++) {
@@ -70,4 +70,6 @@ const makeDemoData = async ctx => {
     data: demoMails,
   })
 }
+
+type CtxWithPrismaAndSession = inferRouterContext<typeof mailRouter>
 
