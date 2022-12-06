@@ -6,11 +6,34 @@ import { trpc } from '../utils/trpc'
 
 import '../styles/globals.css'
 
-const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
-  return (
+import Layout from '../cmps/layout'
+
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
+import type { AppProps } from 'next/app'
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+// @ts-expect-error
+// TODO: Figure out why the typing is mad
+const MyApp: AppType<{ session: Session | null }> = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout || (page => page)
+
+  return getLayout(
     <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </SessionProvider>,
   )
 }
 
