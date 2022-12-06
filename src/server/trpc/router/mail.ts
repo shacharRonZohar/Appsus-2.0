@@ -36,6 +36,25 @@ export const mailRouter = router({
       },
     })
   }),
+  create: protectedProcedure
+    .input(
+      z.object({
+        from: z.string(),
+        to: z.string(),
+        subject: z.string().default('No Subject'),
+        body: z.string().default(''),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = ctx.session.user
+      const mail = await ctx.prisma.mail.create({
+        data: {
+          ...input,
+          from: user.email!,
+        },
+      })
+      return mail
+    }),
 })
 
 const makeDemoData = async (ctx: CtxWithPrismaAndSession) => {
