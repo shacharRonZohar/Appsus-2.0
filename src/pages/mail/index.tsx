@@ -1,12 +1,18 @@
-import { NextPage } from 'next'
 import { signIn, useSession } from 'next-auth/react'
 import { trpc } from '../../utils/trpc'
+
+import MailList from '../../cmps/mail/mail-list'
 
 import type { NextPageWithLayout } from '../_app'
 
 const MailApp: NextPageWithLayout = () => {
   const { data: sessionData } = useSession()
-  const { data, isLoading, isError, error } = trpc.mail.getAll.useQuery(undefined, {
+  const {
+    data: mails,
+    isLoading,
+    isError,
+    error,
+  } = trpc.mail.getAll.useQuery(undefined, {
     enabled: sessionData?.user !== undefined,
   })
   if (!sessionData?.user)
@@ -18,18 +24,7 @@ const MailApp: NextPageWithLayout = () => {
     )
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>{error.message}</div>
-  return (
-    <div>
-      {data.map(item => {
-        return (
-          <div key={item.id}>
-            {/* {item.subject} */}
-            <div>{item.body}</div>
-          </div>
-        )
-      })}
-    </div>
-  )
+  return <MailList mails={mails} />
 }
 
 // return <div>{page}</div>
