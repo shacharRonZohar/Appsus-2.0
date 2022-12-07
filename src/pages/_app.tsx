@@ -20,8 +20,8 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-// @ts-expect-error
 // TODO: Figure out why the typing is mad
+// @ts-
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
