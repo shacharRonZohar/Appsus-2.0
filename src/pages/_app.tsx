@@ -1,18 +1,15 @@
-import { type AppType } from 'next/app'
-import { type Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
-
 import { trpc } from '../utils/trpc'
-
+// import { type Session } from 'next-auth'
 import '../styles/globals.css'
 
 import Layout from '../cmps/layout'
 
-import type { ReactElement, ReactNode } from 'react'
 import type { NextPage } from 'next'
-import type { AppProps } from 'next/app'
+import type { AppType, AppProps } from 'next/app'
+import type { ReactElement, ReactNode } from 'react'
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
@@ -20,14 +17,8 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-// TODO: Figure out why the typing is mad
-// @ts-
-const MyApp: AppType<{ session: Session | null }> = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppPropsWithLayout) => {
+const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || (page => page)
-
   return getLayout(
     <SessionProvider session={session}>
       <Layout>
@@ -37,4 +28,5 @@ const MyApp: AppType<{ session: Session | null }> = ({
   )
 }
 
-export default trpc.withTRPC(MyApp)
+// TODO: Find out how to avoid this cast
+export default trpc.withTRPC(MyApp as AppType)

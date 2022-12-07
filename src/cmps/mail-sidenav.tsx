@@ -1,5 +1,6 @@
-import { useSession } from 'next-auth/react'
 import React from 'react'
+import { useSession } from 'next-auth/react'
+
 import { trpc } from '../utils/trpc'
 
 const MailSideNav: React.FC = () => {
@@ -10,14 +11,15 @@ const MailSideNav: React.FC = () => {
       utils.mail.getAll.invalidate()
     },
   })
-  if (!sessionData?.user) return <div>Not logged in</div>
+  if (!sessionData) return <div>Not logged in</div>
   return (
     <div>
       Mail Sidenav
       <button
         onClick={() =>
           mutation.mutate({
-            from: sessionData.user?.email!,
+            // TODO: Find out why user email is optional
+            from: sessionData.user?.email || '',
             to: 'test@gmail.com',
             subject: 'test',
             body: 'test',

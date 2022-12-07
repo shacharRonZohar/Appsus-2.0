@@ -1,9 +1,10 @@
 import React from 'react'
+import { useRouter } from 'next/router'
+
 import AppHeader from './app-header'
+import MailSideNav from '../cmps/mail-sidenav'
 
 import type { LayoutFC } from '../types/utils'
-import { useRouter } from 'next/router'
-import MailSideNav from '../cmps/mail-sidenav'
 
 const Layout: LayoutFC = ({ children }) => {
   const { pathname } = useRouter()
@@ -21,7 +22,7 @@ const Layout: LayoutFC = ({ children }) => {
     <>
       <AppHeader />
       {getSideBar()}
-      <div>{children}</div>
+      <main>{children}</main>
     </>
   )
 }
