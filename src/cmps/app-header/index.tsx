@@ -1,10 +1,10 @@
-import MainNav from './main-nav'
+import React from 'react'
 
-import type React from 'react'
+import MainNav from '../main-nav'
 
 const AppHeader: React.FC = () => {
   return (
-    <header className="app-header">
+    <header className="flex justify-between">
       <h1>Appsus</h1>
       <MainNav />
     </header>

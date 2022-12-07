@@ -3,7 +3,7 @@ import Link from 'next/link'
 const MainNav: React.FC = () => {
   return (
     <nav>
-      <ul>
+      <ul className="flex">
         <li>
           <Link href="/">Home</Link>
         </li>

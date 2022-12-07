@@ -1,9 +1,11 @@
 import React from 'react'
+import MailNav from './mail-nav'
+
 import { useSession } from 'next-auth/react'
 
-import { trpc } from '../utils/trpc'
+import { trpc } from '../../utils/trpc'
 
-const MailSideNav: React.FC = () => {
+const MailSidebar: React.FC = () => {
   const { data: sessionData } = useSession()
   const utils = trpc.useContext()
   const mutation = trpc.mail.create.useMutation({
@@ -13,7 +15,7 @@ const MailSideNav: React.FC = () => {
   })
   if (!sessionData) return <div>Not logged in</div>
   return (
-    <div>
+    <aside>
       Mail Sidenav
       <button
         onClick={() =>
@@ -29,7 +31,8 @@ const MailSideNav: React.FC = () => {
         Compose
       </button>
       {mutation.isLoading && <div>Adding Mail...</div>}
-    </div>
+      <MailNav />
+    </aside>
   )
 }
-export default MailSideNav
+export default MailSidebar
