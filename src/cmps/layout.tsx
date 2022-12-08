@@ -20,11 +20,11 @@ const Layout: LayoutFC = ({ children }) => {
   //   }
   // }
   return (
-    <div className="container min-h-screen grid">
+    <div className="container min-h-screen min-w-full grid grid-cols-main-layout grid-rows-main-layout">
       <AppHeader />
       {/* {getSideBar()} */}
-      <div>{children}</div>
       <MainNav />
+      <div>{children}</div>
     </div>
   )
 }

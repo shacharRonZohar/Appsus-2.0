@@ -4,9 +4,10 @@ import MainNav from '../main-nav'
 
 const AppHeader: React.FC = () => {
   return (
-    <header className="flex justify-between">
+    <header className="col-start-2 flex justify-between">
       <h1>Appsus</h1>
-      <MainNav />
+      {/* <div>Filter placeholder</div> */}
+      {/* <MainNav /> */}
     </header>
   )
 }
