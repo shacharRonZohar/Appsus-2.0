@@ -21,9 +21,9 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
   const getLayout = Component.getLayout || (page => page)
   return getLayout(
     <SessionProvider session={session}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      {/* <Layout> */}
+      <Component {...pageProps} />
+      {/* </Layout> */}
     </SessionProvider>,
   )
 }

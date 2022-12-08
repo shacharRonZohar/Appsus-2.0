@@ -1,6 +1,6 @@
 import React from 'react'
 
-import MainNav from '../main-nav'
+import Navbar from '../navbar'
 
 const AppHeader: React.FC = () => {
   return (

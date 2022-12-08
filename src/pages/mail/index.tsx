@@ -1,6 +1,8 @@
 import { signIn, useSession } from 'next-auth/react'
 import { trpc } from '../../utils/trpc'
 
+import Layout from '../../cmps/layout'
+import MailLayout from '../../cmps/mail/layout'
 import MailList from '../../cmps/mail/mail-list'
 
 import type { NextPageWithLayout } from '../_app'
@@ -27,6 +29,14 @@ const MailApp: NextPageWithLayout = () => {
   return <MailList mails={mails} />
 }
 
+MailApp.getLayout = page => {
+  return (
+    <Layout>
+      <MailLayout>{page}</MailLayout>
+    </Layout>
+  )
+  // <MailLayout>{page}</MailLayout>
+}
 // return <div>{page}</div>
 
 export default MailApp

@@ -1,4 +1,7 @@
 import Link from 'next/link'
+import React from 'react'
+
+import NavbarWrapper from '.'
 
 const MainNavLink: React.FC<{ loc?: string }> = ({ loc = '' }) => {
   return (
@@ -12,16 +15,8 @@ const MainNavLink: React.FC<{ loc?: string }> = ({ loc = '' }) => {
 }
 
 const MainNav: React.FC = () => {
-  return (
-    <nav className="row-span-full">
-      <ul className="flex flex-col">
-        <MainNavLink />
-        <MainNavLink loc="mail" />
-        <MainNavLink loc="keep" />
-        <MainNavLink loc="about" />
-      </ul>
-    </nav>
-  )
+  const locs = ['home', 'mail', 'keep', 'about']
+  return <NavbarWrapper locs={locs} NavLink={MainNavLink} />
 }
 
 export default MainNav
